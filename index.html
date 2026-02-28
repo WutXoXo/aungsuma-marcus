@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aungsuma & Marcus — งานแต่งงาน</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Sarabun:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f0f6f4;
+    --blush: #a8c8c0;
+    --rose: #b76e79;
+    --gold: #c49a6c;
+    --deep: #1a3a3a;
+    --sage: #4a7c6f;
+    --text: #2c4a45;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(253,248,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,147,84,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text);
+    font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-visual {
+    background: linear-gradient(160deg, #b8d8d0 0%, #7aab9e 40%, #4a8a7c 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 30% 70%, rgba(180,110,121,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(196,154,108,0.2) 0%, transparent 50%);
+  }
+  .floral-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  .hero-photo-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo-frame {
+    width: 340px; height: 460px;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 180px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: rgba(255,255,255,0.8);
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 1.8;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hero-content {
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 80px 70px 80px 60px;
+    position: relative;
+  }
+  .hero-content::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(168,200,192,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 1s 0.3s forwards;
+  }
+  .names {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--deep);
+    opacity: 0; animation: fadeUp 1s 0.5s forwards;
+  }
+  .names em {
+    display: block;
+    font-style: italic;
+    color: var(--rose);
+    font-size: 0.7em;
+    margin: 8px 0;
+  }
+  .ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.8em;
+    color: var(--gold);
+    display: block;
+    margin: -0.1em 0;
+  }
+  .date-strip {
+    margin-top: 40px;
+    display: flex; align-items: center; gap: 24px;
+    opacity: 0; animation: fadeUp 1s 0.8s forwards;
+  }
+  .date-line { flex: 1; height: 1px; background: var(--blush); }
+  .date-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; letter-spacing: 0.12em;
+    color: var(--text); white-space: nowrap;
+  }
+  .hero-message {
+    margin-top: 36px;
+    font-size: 1rem; line-height: 1.9;
+    color: var(--text); opacity: 0.75;
+    max-width: 380px;
+    opacity: 0; animation: fadeUp 1s 1s forwards;
+  }
+  .hero-cta {
+    margin-top: 48px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+  }
+  .btn {
+    display: inline-block; padding: 14px 36px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none; border-radius: 60px;
+    transition: all 0.35s ease;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--rose); color: white; border: none;
+    box-shadow: 0 8px 30px rgba(201,133,106,0.35);
+  }
+  .btn-primary:hover {
+    background: var(--deep);
+    box-shadow: 0 12px 40px rgba(61,43,31,0.3);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(184,147,84,0.5);
+  }
+  .btn-outline:hover {
+    border-color: var(--gold); color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* COUNTDOWN */
+  .countdown-bar {
+    background: var(--deep);
+    padding: 32px 60px;
+    display: flex; justify-content: center; gap: 60px; align-items: center;
+  }
+  .count-item { text-align: center; }
+  .count-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; color: var(--gold);
+    display: block; line-height: 1;
+  }
+  .count-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-top: 6px; display: block;
+  }
+  .count-divider { color: rgba(184,147,84,0.4); font-size: 2rem; }
+
+  /* SECTION BASE */
+  section { padding: 100px 60px; }
+  .section-label {
+    display: block; font-size: 0.72rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.15; color: var(--deep);
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--rose); }
+  .section-sub {
+    font-size: 1rem; line-height: 1.9;
+    color: var(--text); opacity: 0.7;
+    max-width: 520px;
+  }
+
+  /* STORY */
+  .story {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .story-timeline { position: relative; }
+  .timeline-item {
+    display: flex; gap: 24px; margin-bottom: 40px;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.7s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--blush); border: 2px solid var(--rose);
+    flex-shrink: 0; margin-top: 6px; position: relative;
+  }
+  .tl-dot::before {
+    content: ''; position: absolute;
+    top: 10px; left: 3px;
+    width: 1px; height: 56px;
+    background: linear-gradient(to bottom, var(--blush), transparent);
+  }
+  .tl-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--deep); margin-bottom: 6px;
+  }
+  .tl-content p { font-size: 0.9rem; line-height: 1.7; opacity: 0.7; }
+  .tl-date {
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .story-visual {
+    position: relative;
+  }
+  .story-img-wrap {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #b8d8d0, #7aab9e);
+    border-radius: 200px 200px 120px 120px;
+    overflow: hidden;
+    position: relative;
+  }
+  .story-img-wrap::after { content: none; }
+  .story-img-wrap::after {
+    content: '📷 รูปภาพของคู่บ่าวสาว';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; color: rgba(61,43,31,0.5);
+    text-align: center; line-height: 2;
+  }
+  .story-deco {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 160px; height: 160px;
+    border: 2px solid rgba(184,147,84,0.3);
+    border-radius: 50%;
+  }
+
+  /* DETAILS */
+  .details-section { background: white; }
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-top: 60px;
+    max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+  .detail-card {
+    padding: 50px 40px; background: white;
+    border: 1px solid rgba(232,197,176,0.4);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .detail-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(201,133,106,0.15);
+  }
+  .detail-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blush), var(--rose), var(--gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .detail-card:hover::before { transform: scaleX(1); }
+  .card-icon {
+    font-size: 2rem; margin-bottom: 20px; display: block;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--deep);
+    margin-bottom: 12px;
+  }
+  .card-info { font-size: 0.95rem; line-height: 1.9; opacity: 0.7; }
+  .card-highlight {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; color: var(--rose);
+    font-style: italic; margin-top: 12px; display: block;
+  }
+
+  /* GALLERY */
+  .gallery-section { background: var(--cream); }
+  .gallery-intro { max-width: 1100px; margin: 0 auto; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 220px 220px;
+    gap: 12px;
+    margin-top: 48px;
+    max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+  .gallery-item {
+    border-radius: 12px; overflow: hidden;
+    background: linear-gradient(135deg, #b8d8d0, #7aab9e);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: rgba(26,58,58,0.4);
+    font-family: 'Cormorant Garamond', serif;
+    transition: transform 0.4s ease, filter 0.4s;
+    cursor: pointer;
+  }
+  .gallery-item:hover { transform: scale(1.03); filter: brightness(1.05); }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; font-size: 1rem; }
+  .gallery-item:nth-child(4) { background: linear-gradient(135deg, #7aab9e, #4a8a7c); }
+  .gallery-item:nth-child(6) { background: linear-gradient(135deg, #c49a6c 0%, #b76e79 100%); }
+
+  /* RSVP */
+  .rsvp-section {
+    background: var(--deep);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .rsvp-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(183,110,121,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(196,154,108,0.12) 0%, transparent 60%);
+  }
+  .rsvp-section .section-label { color: var(--blush); }
+  .rsvp-section .section-title { color: var(--cream); }
+  .rsvp-section .section-title em { color: var(--gold); }
+  .rsvp-section .section-sub { color: rgba(253,248,242,0.6); margin: 0 auto 50px; }
+  .rsvp-form {
+    max-width: 560px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 16px; text-align: left; }
+  .form-group label {
+    display: block; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(253,248,242,0.5); margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 14px 18px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(184,147,84,0.3);
+    border-radius: 8px; color: var(--cream);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.3s, background 0.3s;
+    outline: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(253,248,242,0.3); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.1);
+  }
+  .form-group select option { background: var(--deep); }
+  .form-group textarea { min-height: 90px; resize: vertical; }
+  .submit-btn {
+    width: 100%; padding: 18px;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    color: white; border: none; border-radius: 60px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer; margin-top: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(201,133,106,0.3);
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 50px rgba(201,133,106,0.4);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-names {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.3rem; color: var(--gold);
+  }
+  .footer-note {
+    font-size: 0.78rem; color: rgba(253,248,242,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  /* DECORATIVE */
+  .petal {
+    position: absolute;
+    width: 8px; height: 12px;
+    background: rgba(74,122,111,0.3);
+    border-radius: 50% 50% 50% 0;
+    animation: fall linear infinite;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MAP PLACEHOLDER */
+  .map-placeholder {
+    width: 100%; height: 240px;
+    background: linear-gradient(135deg, #b8d8d0, #7aab9e);
+    border-radius: 16px; margin-top: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: rgba(61,43,31,0.5); font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    position: relative; overflow: hidden;
+  }
+  .map-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(255,255,255,0.15) 40px, rgba(255,255,255,0.15) 41px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 40px,
+      rgba(255,255,255,0.15) 40px, rgba(255,255,255,0.15) 41px
+    );
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { height: 400px; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    .story { grid-template-columns: 1fr; gap: 40px; }
+    .details-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .countdown-bar { gap: 24px; padding: 24px; }
+    .hero-content { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Aungsuma & Marcus</div>
+  <ul class="nav-links">
+    <li><a href="#story">เรื่องราวของเรา</a></li>
+    <li><a href="#details">รายละเอียด</a></li>
+    <li><a href="#gallery">แกลเลอรี่</a></li>
+    <li><a href="#rsvp">ตอบรับ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-visual">
+    <svg class="floral-svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity="0.25">
+      <!-- Decorative floral elements -->
+      <circle cx="80" cy="120" r="60" fill="none" stroke="#fff" stroke-width="1"/>
+      <circle cx="80" cy="120" r="40" fill="none" stroke="#fff" stroke-width="0.5"/>
+      <circle cx="520" cy="780" r="80" fill="none" stroke="#fff" stroke-width="1"/>
+      <ellipse cx="300" cy="450" rx="200" ry="300" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.5"/>
+      <!-- petals top left -->
+      <path d="M60,60 Q80,20 100,60 Q80,100 60,60Z" fill="#fff" opacity="0.4"/>
+      <path d="M20,100 Q60,80 60,120 Q20,140 20,100Z" fill="#fff" opacity="0.3"/>
+      <path d="M100,100 Q140,80 140,120 Q100,140 100,100Z" fill="#fff" opacity="0.3"/>
+      <path d="M60,140 Q80,180 100,140 Q80,100 60,140Z" fill="#fff" opacity="0.4"/>
+      <!-- petals bottom right -->
+      <path d="M480,740 Q500,700 520,740 Q500,780 480,740Z" fill="#fff" opacity="0.4"/>
+      <path d="M440,780 Q480,760 480,800 Q440,820 440,780Z" fill="#fff" opacity="0.3"/>
+      <path d="M520,780 Q560,760 560,800 Q520,820 520,780Z" fill="#fff" opacity="0.3"/>
+      <path d="M480,820 Q500,860 520,820 Q500,780 480,820Z" fill="#fff" opacity="0.4"/>
+      <!-- vines -->
+      <path d="M0,200 Q150,300 300,250 Q450,200 600,350" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.3"/>
+      <path d="M0,600 Q200,500 350,580 Q500,650 600,550" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.3"/>
+    </svg>
+    <div class="hero-photo-placeholder">
+      <div class="photo-frame" style="background:none;border:none;padding:0;overflow:hidden;backdrop-filter:none;">
+        <img src="couple.jpg" alt="Aungsuma & Marcus" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:180px;">
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <span class="eyebrow">ขอเรียนเชิญร่วมเป็นส่วนหนึ่ง</span>
+    <h1 class="names">
+      Aungsuma<br>
+      <span class="ampersand">&</span>
+      Marcus<br>
+      <em>อังสุมา & มาคัส</em>
+    </h1>
+    <div class="date-strip">
+      <div class="date-line"></div>
+      <span class="date-text">Sunday, 12 April 2026</span>
+      <div class="date-line"></div>
+    </div>
+    <p class="hero-message">
+      ด้วยความรักและความสุข เราขอเชิญท่านมาร่วมเฉลิมฉลองในวันพิเศษที่สุดของชีวิต
+    </p>
+    <div class="hero-cta">
+      <a href="#rsvp" class="btn btn-primary">ตอบรับเข้าร่วมงาน</a>
+      <a href="#details" class="btn btn-outline">ดูรายละเอียด</a>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-bar">
+  <div class="count-item">
+    <span class="count-num" id="days">15</span>
+    <span class="count-label">วัน</span>
+  </div>
+  <div class="count-divider">·</div>
+  <div class="count-item">
+    <span class="count-num" id="hours">08</span>
+    <span class="count-label">ชั่วโมง</span>
+  </div>
+  <div class="count-divider">·</div>
+  <div class="count-item">
+    <span class="count-num" id="minutes">32</span>
+    <span class="count-label">นาที</span>
+  </div>
+  <div class="count-divider">·</div>
+  <div class="count-item">
+    <span class="count-num" id="seconds">00</span>
+    <span class="count-label">วินาที</span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story" style="background: white;">
+  <div class="story">
+    <div>
+      <span class="section-label reveal">เรื่องราวของเรา</span>
+      <h2 class="section-title reveal">จากวันนั้น<br>ถึง<em>วันนี้</em></h2>
+      <p class="section-sub reveal">ทุกช่วงเวลาที่ผ่านมา ทำให้เราเชื่อว่าสิ่งดีๆ ใช้เวลาเสมอ</p>
+
+      <div class="story-timeline" style="margin-top:48px">
+        <div class="timeline-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-date">มีนาคม 2019</div>
+            <h4>ครั้งแรกที่พบกัน</h4>
+            <p>เราพบกันครั้งแรกที่งานสัมมนาของบริษัท สายตาที่แลกกันนั้นเปลี่ยนทุกอย่างไปตลอดกาล</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-date">กรกฎาคม 2020</div>
+            <h4>เริ่มต้นความสัมพันธ์</h4>
+            <p>หลังจากมิตรภาพที่งดงาม เราก้าวเข้าสู่บทใหม่ด้วยหัวใจที่เต็มเปี่ยม</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-date">ธันวาคม 2024</div>
+            <h4>วันที่ขอแต่งงาน</h4>
+            <p>ท่ามกลางแสงดาวในคืนที่หนาวเล็กน้อย เขาคุกเข่าถามคำถามที่เธอรอมาตลอด</p>
+          </div>
+        </div>
+        <div class="timeline-item" style="margin-bottom:0">
+          <div class="tl-dot" style="background:var(--rose);border-color:var(--gold)"></div>
+          <div class="tl-content">
+            <div class="tl-date">เมษายน 2026</div>
+            <h4>วันแห่งความรักตลอดกาล 💍</h4>
+            <p>และนี่คือบทใหม่ที่รอคุณมาร่วมเป็นส่วนหนึ่ง</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-visual reveal">
+      <div class="story-img-wrap">
+        <img src="couple.jpg" alt="Aungsuma & Marcus" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+      </div>
+      <div class="story-deco"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section id="details" class="details-section">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="section-label reveal">รายละเอียดงาน</span>
+    <h2 class="section-title reveal">รู้จักวันสำคัญ<br>ของ<em>เรา</em></h2>
+  </div>
+  <div class="details-grid reveal">
+    <div class="detail-card">
+      <span class="card-icon">🧧</span>
+      <h3 class="card-title">ผูกข้อไม้ข้อมือ</h3>
+      <p class="card-info">
+        พิธีมงคลสู่ขวัญผูกข้อมือรับพร<br>
+        จากผู้ใหญ่และแขกผู้มีเกียรติทุกท่าน
+      </p>
+      <span class="card-highlight">09:09 น.</span>
+    </div>
+    <div class="detail-card">
+      <span class="card-icon">🍽️</span>
+      <h3 class="card-title">รับประทานอาหาร</h3>
+      <p class="card-info">
+        ร่วมรับประทานอาหารกลางวันพร้อมกัน<br>
+        ในบรรยากาศอบอุ่นแห่งความสุขและรัก
+      </p>
+      <span class="card-highlight">10:30 น.</span>
+    </div>
+    <div class="detail-card">
+      <span class="card-icon">📸</span>
+      <h3 class="card-title">ถ่ายรูปกับบ่าวสาว</h3>
+      <p class="card-info">
+        บันทึกความทรงจำอันแสนพิเศษ<br>
+        ร่วมกับ Aungsuma & Marcus
+      </p>
+      <span class="card-highlight">12:00 น.</span>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:60px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:40px" class="reveal">
+    <div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--deep);margin-bottom:16px">📍 สถานที่จัดงาน</h3>
+      <p style="line-height:1.9;opacity:0.8">
+        <strong>บ้านนามูล</strong><br>
+        บ้านเลขที่ 290 หมู่ 7<br>
+        บ้านนามูล ตำบลดูนสาด<br>
+        อำเภอกระนวน จังหวัดขอนแก่น 40170
+      </p>
+      <a href="https://maps.app.goo.gl/XRJ6Z6FxcpZdTgcx9" target="_blank" style="text-decoration:none;display:inline-block;margin-top:20px">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 28px;background:var(--cream);border:1px solid rgba(184,147,84,0.4);border-radius:60px;transition:all 0.3s;cursor:pointer"
+          onmouseover="this.style.background='#fdf0eb';this.style.borderColor='var(--rose)'"
+          onmouseout="this.style.background='var(--cream)';this.style.borderColor='rgba(184,147,84,0.4)'">
+          <span style="font-size:1.3rem">📍</span>
+          <span style="font-family:'Sarabun',sans-serif;font-size:0.85rem;letter-spacing:0.12em;color:var(--rose)">ดูเส้นทางใน Google Maps →</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--deep);margin-bottom:16px">👗 การแต่งกาย</h3>
+      <p style="line-height:1.9;opacity:0.8;margin-bottom:24px">
+        <strong>Dress Code:</strong> สีฟ้า สีเขียว หรือโรสโกลด์<br><br>
+        ขอให้ท่านแต่งกายสุภาพ สง่างาม เพื่อความสวยงามของภาพถ่ายและบรรยากาศงาน
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="width:50px;height:50px;border-radius:50%;background:#f0f6f4;border:2px solid var(--blush)"></div>
+        <div style="width:50px;height:50px;border-radius:50%;background:#b8d8d0;border:2px solid var(--sage)"></div>
+        <div style="width:50px;height:50px;border-radius:50%;background:#e8d9af;border:2px solid var(--gold)"></div>
+        <div style="width:50px;height:50px;border-radius:50%;background:#d4a0a8;border:2px solid var(--rose)"></div>
+      </div>
+      <p style="font-size:0.8rem;opacity:0.5;margin-top:12px;letter-spacing:0.1em">ตัวอย่างโทนสี</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <div class="gallery-intro">
+    <span class="section-label reveal">แกลเลอรี่</span>
+    <h2 class="section-title reveal">ความทรงจำ<em>ของเรา</em></h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">ภาพถ่ายคู่</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+    <div class="gallery-item">ภาพถ่าย</div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section id="rsvp" class="rsvp-section">
+  <span class="section-label">ยืนยันการเข้าร่วม</span>
+  <h2 class="section-title">รอพบคุณใน<br><em>วันพิเศษนั้น</em></h2>
+  <p class="section-sub">กรุณาตอบรับภายในวันที่ 31 มีนาคม 2569<br>เพื่อให้เราเตรียมการต้อนรับได้อย่างสมบูรณ์แบบ</p>
+
+  <form class="rsvp-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label>ชื่อ</label>
+        <input type="text" placeholder="ชื่อจริง" required>
+      </div>
+      <div class="form-group">
+        <label>นามสกุล</label>
+        <input type="text" placeholder="นามสกุล" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>อีเมล</label>
+      <input type="email" placeholder="email@example.com" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>จำนวนผู้ร่วมงาน</label>
+        <select>
+          <option>1 ท่าน</option>
+          <option>2 ท่าน</option>
+          <option>3 ท่าน</option>
+          <option>4 ท่าน</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>ช่วงงานที่เข้าร่วม</label>
+        <select>
+          <option>ทั้งหมด</option>
+          <option>ผูกข้อไม้ข้อมือ</option>
+          <option>รับประทานอาหาร</option>
+          <option>ถ่ายรูปกับบ่าวสาว</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>ข้อความแสดงความยินดี (ถ้ามี)</label>
+      <textarea placeholder="ส่งความรักและความปรารถนาดีให้คู่บ่าวสาว..."></textarea>
+    </div>
+    <button type="submit" class="submit-btn">ยืนยันการเข้าร่วมงาน ✦</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-names">Aungsuma & Marcus</div>
+  <div class="footer-note">12 April 2026 · ขอนแก่น</div>
+  <div class="footer-note">สร้างด้วย ♥ สำหรับวันพิเศษของเรา</div>
+</footer>
+
+<script>
+// Countdown
+function updateCountdown() {
+  const wedding = new Date('2026-04-12T09:00:00');
+  const now = new Date();
+  const diff = wedding - now;
+  if (diff > 0) {
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').textContent = String(d).padStart(2,'0');
+    document.getElementById('hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(s).padStart(2,'0');
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+// Form
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.submit-btn');
+  btn.textContent = '✓ ยืนยันแล้ว — ขอบคุณที่จะมาร่วมงาน!';
+  btn.style.background = 'linear-gradient(135deg, #8a9e8a, #6d8c6d)';
+  btn.disabled = true;
+}
+
+// Petals
+function createPetal() {
+  const hero = document.querySelector('.hero-visual');
+  if (!hero) return;
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.animationDuration = (4 + Math.random() * 4) + 's';
+  p.style.animationDelay = Math.random() * 2 + 's';
+  p.style.opacity = Math.random() * 0.5 + 0.2;
+  hero.appendChild(p);
+  setTimeout(() => p.remove(), 8000);
+}
+setInterval(createPetal, 800);
+</script>
+</body>
+</html>
